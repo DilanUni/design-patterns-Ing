@@ -9,9 +9,12 @@ class TechnicalServiceResolution
 class SendResidenceResolution
 
 interface Ticket {
+    +register()
+    +notify()
     +setResolutionStrategy(strategy: Resolution)
     +resolveTicket()
 }
+
 
 AutomaticResolution ..|> Resolution
 TechnicalServiceResolution ..|> Resolution
