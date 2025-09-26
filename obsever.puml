@@ -1,0 +1,18 @@
+@startuml
+
+interface DepartmentNotifier {
+    +update(ticket: Ticket)
+}
+
+class TechnicalArea
+class PlanningArea
+class SystemsArea
+
+interface Ticket
+
+TechnicalArea ..|> DepartmentNotifier
+PlanningArea ..|> DepartmentNotifier
+SystemsArea ..|> DepartmentNotifier
+
+Ticket o-- DepartmentNotifier
+@enduml

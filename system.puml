@@ -1,0 +1,71 @@
+@startuml
+
+package "Factory Method" {
+    interface Ticket {
+        +register()
+        +notify()
+    }
+
+    class BillingTicket
+    class TechnicalTicket
+    class PlanningTicket
+
+    abstract class TicketFactory {
+        +createTicket(type): Ticket
+    }
+
+    class ServiceTicketCreator
+
+    BillingTicket ..|> Ticket
+    TechnicalTicket ..|> Ticket
+    PlanningTicket ..|> Ticket
+    ServiceTicketCreator --|> TicketFactory
+    ServiceTicketCreator --> Ticket
+}
+
+package "Observer" {
+    interface DepartmentNotifier {
+        +update(ticket: Ticket)
+    }
+
+    class TechnicalArea
+    class PlanningArea
+    class SystemsArea
+
+    Ticket o-- DepartmentNotifier
+
+    TechnicalArea ..|> DepartmentNotifier
+    PlanningArea ..|> DepartmentNotifier
+    SystemsArea ..|> DepartmentNotifier
+}
+
+package "Strategy" {
+    interface Resolution {
+        +resolve(ticket: Ticket)
+    }
+
+    class AutomaticResolution
+    class TechnicalServiceResolution
+    class SendResidenceResolution
+
+    Ticket --> Resolution
+
+    AutomaticResolution ..|> Resolution
+    TechnicalServiceResolution ..|> Resolution
+    SendResidenceResolution ..|> Resolution
+}
+
+package "Facade" {
+    class CustomerService {
+        +createTicket(type, data)
+        +resolveTicket(ticket: Ticket, strategy: Resolution)
+        +notifyDepartments(ticket: Ticket)
+    }
+
+    CustomerService --> ServiceTicketCreator
+    CustomerService --> Ticket
+    CustomerService --> DepartmentNotifier
+    CustomerService --> Resolution
+}
+
+@enduml

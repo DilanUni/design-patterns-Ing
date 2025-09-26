@@ -1,0 +1,20 @@
+@startuml
+
+interface Resolution {
+    +resolve(ticket: Ticket)
+}
+
+class AutomaticResolution
+class TechnicalServiceResolution
+class SendResidenceResolution
+
+interface Ticket {
+    +setResolutionStrategy(strategy: Resolution)
+    +resolveTicket()
+}
+
+AutomaticResolution ..|> Resolution
+TechnicalServiceResolution ..|> Resolution
+SendResidenceResolution ..|> Resolution
+Ticket --> Resolution
+@enduml

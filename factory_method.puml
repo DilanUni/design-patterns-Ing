@@ -1,0 +1,25 @@
+
+@startuml
+
+interface Ticket {
+    +register()
+    +notify()
+}
+
+class BillingTicket
+class TechnicalTicket
+class PlanningTicket
+
+abstract class TicketFactory {
+    +createTicket(type): Ticket
+}
+
+class ServiceTicketCreator
+
+BillingTicket ..|> Ticket
+TechnicalTicket ..|> Ticket
+PlanningTicket ..|> Ticket
+
+ServiceTicketCreator --|> TicketFactory
+ServiceTicketCreator --> Ticket
+@enduml
