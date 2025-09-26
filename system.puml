@@ -4,6 +4,8 @@ package "Factory Method" {
     interface Ticket {
         +register()
         +notify()
+        +setResolutionStrategy(strategy: Resolution)
+        +resolveTicket()
     }
 
     class BillingTicket
@@ -32,7 +34,7 @@ package "Observer" {
     class PlanningArea
     class SystemsArea
 
-    Ticket o-- DepartmentNotifier
+    Ticket o-- DepartmentNotifier : notifica
 
     TechnicalArea ..|> DepartmentNotifier
     PlanningArea ..|> DepartmentNotifier
@@ -48,7 +50,7 @@ package "Strategy" {
     class TechnicalServiceResolution
     class SendResidenceResolution
 
-    Ticket --> Resolution
+    Ticket --> Resolution : usa estrategia
 
     AutomaticResolution ..|> Resolution
     TechnicalServiceResolution ..|> Resolution
@@ -62,10 +64,10 @@ package "Facade" {
         +notifyDepartments(ticket: Ticket)
     }
 
-    CustomerService --> ServiceTicketCreator
+    CustomerService --> ServiceTicketCreator : crea tickets
     CustomerService --> Ticket
-    CustomerService --> DepartmentNotifier
-    CustomerService --> Resolution
+    CustomerService --> DepartmentNotifier : notifica
+    CustomerService --> Resolution : asigna estrategia
 }
 
 @enduml
