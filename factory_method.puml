@@ -1,4 +1,3 @@
-
 @startuml
 
 interface Ticket {
@@ -11,15 +10,22 @@ class TechnicalTicket
 class PlanningTicket
 
 abstract class TicketFactory {
-    +createTicket(type): Ticket
+    +createTicket(): Ticket
 }
 
-class ServiceTicketCreator
+class BillingTicketFactory
+class TechnicalTicketFactory
+class PlanningTicketFactory
 
 BillingTicket ..|> Ticket
 TechnicalTicket ..|> Ticket
 PlanningTicket ..|> Ticket
 
-ServiceTicketCreator --|> TicketFactory
-ServiceTicketCreator --> Ticket
+TicketFactory <|-- BillingTicketFactory
+TicketFactory <|-- TechnicalTicketFactory
+TicketFactory <|-- PlanningTicketFactory
+
+BillingTicketFactory --> BillingTicket
+TechnicalTicketFactory --> TechnicalTicket
+PlanningTicketFactory --> PlanningTicket
 @enduml

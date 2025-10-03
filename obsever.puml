@@ -1,18 +1,31 @@
 @startuml
 
+interface Ticket {
+    +register()
+    +notify()
+}
+
 interface DepartmentNotifier {
     +update(ticket: Ticket)
 }
+
+class TechnicalTicket
+class BillingTicket
+class PlanningTicket
 
 class TechnicalArea
 class PlanningArea
 class SystemsArea
 
-interface Ticket
+Ticket <|-- TechnicalTicket
+Ticket <|-- BillingTicket
+Ticket <|-- PlanningTicket
 
-TechnicalArea ..|> DepartmentNotifier
-PlanningArea ..|> DepartmentNotifier
-SystemsArea ..|> DepartmentNotifier
+DepartmentNotifier <|.. TechnicalArea
+DepartmentNotifier <|.. PlanningArea
+DepartmentNotifier <|.. SystemsArea
 
-Ticket o-- DepartmentNotifier
+TechnicalTicket --> DepartmentNotifier
+BillingTicket --> DepartmentNotifier
+PlanningTicket --> DepartmentNotifier
 @enduml

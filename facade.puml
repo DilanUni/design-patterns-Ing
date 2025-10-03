@@ -1,18 +1,15 @@
 @startuml
 
 class CustomerService {
-    +createTicket(type, data)
+    +createTicket(factory: TicketFactory): Ticket
     +resolveTicket(ticket: Ticket, strategy: Resolution)
-    +notifyDepartments(ticket: Ticket)
 }
 
-class ServiceTicketCreator
 interface Ticket
-interface DepartmentNotifier
 interface Resolution
 
-CustomerService --> ServiceTicketCreator
 CustomerService --> Ticket
-CustomerService --> DepartmentNotifier
 CustomerService --> Resolution
+CustomerService --> TicketFactory
+
 @enduml
